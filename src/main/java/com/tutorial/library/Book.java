@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -23,9 +22,7 @@ public class Book {
     @Min(value = 1,message = "sayfa sayisi 1'den az olamaz")
     private int pages;
 
-    public Book(){
-
-    }
+    public Book(){}
     public Book(Long id,String title,String author,int pages){
         this.id = id;
         this.title= title;

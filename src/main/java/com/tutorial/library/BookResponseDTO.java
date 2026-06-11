@@ -5,13 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class BookResponseDTO {
-    @NotNull(message = "Id bos birakilamaz")
     private Long id;
-    @NotBlank(message = "Kitap adi bos birakilamaz")
     private String title;
-    @NotBlank(message = "yazar adi bos birakilamz")
     private String author;
-    @Min(value = 1,message = "sayfa sayisi 1'den az olamaz")
     private int pages;
 
     public BookResponseDTO(){}
