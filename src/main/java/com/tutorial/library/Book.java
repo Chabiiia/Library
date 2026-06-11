@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -18,14 +20,17 @@ public class Book {
     @NotBlank(message = "Bu kisim bos birakilamaz")
     @Size(min = 2,message = "en az 2 karakter")
     private String author;
+    @Min(value = 1,message = "sayfa sayisi 1'den az olamaz")
+    private int pages;
 
     public Book(){
 
     }
-    public Book(Long id,String title,String author){
+    public Book(Long id,String title,String author,int pages){
         this.id = id;
         this.title= title;
         this.author=author;
+        this.pages = pages;
     }
 
     public Long getId(){return id;}
@@ -37,4 +42,6 @@ public class Book {
     public String getAuthor(){return author;}
     public void setAuthor(String author){this.author = author;}
 
+    public int getPages(){return pages;}
+    public void setPages(int pages){this.pages=pages;}
 }

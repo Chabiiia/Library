@@ -22,6 +22,7 @@ public class BookService {
         Book book = new Book();
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(bookDTO.getAuthor());
+        book.setPages(bookDTO.getPages());
 
         Book savedBook = bookRepository.save(book);
 
@@ -44,12 +45,13 @@ public class BookService {
 
         existingBook.setTitle(bookDTO.getTitle());
         existingBook.setAuthor(bookDTO.getAuthor());
+        existingBook.setPages(bookDTO.getPages());
 
         Book updatedBook = bookRepository.save(existingBook);
         return toResponseDTO(updatedBook);
     }
 
     private BookResponseDTO toResponseDTO(Book book){
-        return new BookResponseDTO(book.getId(), book.getTitle(), book.getAuthor());
+        return new BookResponseDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPages());
     }
 }
