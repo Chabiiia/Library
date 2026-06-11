@@ -1,7 +1,6 @@
 package com.tutorial.library;
 
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -12,42 +11,45 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> getAllBooks(){
-        return bookRepository.findAll();
+    public List<BookResponseDTO> getAllBooks(){
+        return bookRepository.findAll()
+                .stream()
+                .map(this::toResponseDTO)
+                .toList();
     }
 
-    public BookDTO saveBook(BookDTO bookDTO){
+    public BookResponseDTO saveBook(BookDTO bookDTO){
         Book book = new Book();
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(bookDTO.getAuthor());
 
-        Book saveBook = bookRepository.save(book);
+        Book savedBook = bookRepository.save(book);
 
-        BookDTO responseDTO = new BookDTO();
-        responseDTO.setTitle(saveBook.getTitle());
-        responseDTO.setAuthor(saveBook.getAuthor());
-
-        return responseDTO;
+        return toResponseDTO(savedBook);
     }
 
-    public Book getBookById(Long id){
-        return bookRepository.findById(id)
+    public BookResponseDTO getBookById(Long id){
+        Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id + " ID'li kitap bulunamadi"));
+        return toResponseDTO(book);
     }
 
     public void deleteBookById(Long id){
         bookRepository.deleteById(id);
     }
 
-    public Book updateBook(Long id,Book updatedBook){
-        Book existingBook = bookRepository.findById(id).orElse(null);
+    public BookResponseDTO updateBook(Long id, BookDTO bookDTO){
+        Book existingBook = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id + " ID'li kitap bulunamadi"));
 
-        if (existingBook != null){
-            existingBook.setTitle(updatedBook.getTitle());
-            existingBook.setAuthor(updatedBook.getAuthor());
-            return bookRepository.save(existingBook);
-        }
-        return null;
+        existingBook.setTitle(bookDTO.getTitle());
+        existingBook.setAuthor(bookDTO.getAuthor());
 
+        Book updatedBook = bookRepository.save(existingBook);
+        return toResponseDTO(updatedBook);
+    }
+
+    private BookResponseDTO toResponseDTO(Book book){
+        return new BookResponseDTO(book.getId(), book.getTitle(), book.getAuthor());
     }
 }

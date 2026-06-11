@@ -15,29 +15,28 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> getBooks() {
+    public List<BookResponseDTO> getBooks() {
         return bookService.getAllBooks();
     }
 
     @PostMapping
-    public String addBook(@Valid @RequestBody BookDTO bookDTO){
-        bookService.saveBook(bookDTO);
-        return "kaydedildi";
+    public BookResponseDTO addBook(@Valid @RequestBody BookDTO bookDTO){
+        return bookService.saveBook(bookDTO);
     }
 
     @GetMapping("/{id}")
-    public Book getById(@PathVariable Long id){
+    public BookResponseDTO getById(@PathVariable Long id){
         return bookService.getBookById(id);
     }
 
     @DeleteMapping("/{id}")
     public String deleteByID(@PathVariable Long id){
         bookService.deleteBookById(id);
-        return id + "id li book silindi";
+        return id + " id li book silindi";
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable Long id,@RequestBody Book book){
-        return bookService.updateBook(id,book);
+    public BookResponseDTO updateBook(@PathVariable Long id, @Valid @RequestBody BookDTO bookDTO){
+        return bookService.updateBook(id, bookDTO);
     }
 }
