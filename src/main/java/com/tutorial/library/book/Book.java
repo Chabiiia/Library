@@ -1,9 +1,7 @@
-package com.tutorial.library;
+package com.tutorial.library.book;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.tutorial.library.user.User;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,6 +19,9 @@ public class Book {
     private String author;
     @Min(value = 1,message = "sayfa sayisi 1'den az olamaz")
     private int pages;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Book(){}
     public Book(Long id,String title,String author,int pages){
@@ -41,4 +42,7 @@ public class Book {
 
     public int getPages(){return pages;}
     public void setPages(int pages){this.pages=pages;}
+
+    public User getUser(){return user;}
+    public void setUser(User user){this.user = user;}
 }

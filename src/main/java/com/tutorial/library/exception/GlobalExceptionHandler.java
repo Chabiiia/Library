@@ -1,4 +1,4 @@
-package com.tutorial.library;
+package com.tutorial.library.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

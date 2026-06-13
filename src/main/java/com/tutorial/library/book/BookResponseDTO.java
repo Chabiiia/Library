@@ -1,8 +1,4 @@
-package com.tutorial.library;
-
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+package com.tutorial.library.book;
 
 public class BookResponseDTO {
     private Long id;

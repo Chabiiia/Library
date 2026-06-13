@@ -1,4 +1,4 @@
-package com.tutorial.library;
+package com.tutorial.library.book;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +38,15 @@ public class BookController {
     @PutMapping("/{id}")
     public BookResponseDTO updateBook(@PathVariable Long id, @Valid @RequestBody BookDTO bookDTO){
         return bookService.updateBook(id, bookDTO);
+    }
+
+    @PutMapping("/{bookId}/borrow/{userId}")
+    public BookResponseDTO borrowBook(@PathVariable Long bookId,@PathVariable Long userId){
+        return bookService.borrowBooks(bookId,userId);
+    }
+
+    @PutMapping("/{bookId}/return")
+    public BookResponseDTO returnBook(@PathVariable Long bookId){
+        return bookService.returnBooks(bookId);
     }
 }

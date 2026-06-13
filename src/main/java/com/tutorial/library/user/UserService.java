@@ -1,12 +1,14 @@
-package com.tutorial.library;
+package com.tutorial.library.user;
 
+import com.tutorial.library.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.List;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -23,7 +25,7 @@ public class UserService {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         User savedUser = userRepository.save(user);
         return toResponseDTO(savedUser);

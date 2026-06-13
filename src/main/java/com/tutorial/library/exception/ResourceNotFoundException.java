@@ -1,4 +1,4 @@
-package com.tutorial.library;
+package com.tutorial.library.exception;
 
 public class ResourceNotFoundException extends RuntimeException{
     public ResourceNotFoundException(String message){

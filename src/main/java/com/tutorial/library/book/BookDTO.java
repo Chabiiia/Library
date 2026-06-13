@@ -1,8 +1,7 @@
-package com.tutorial.library;
+package com.tutorial.library.book;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Value;
 
 public class BookDTO {
     @NotBlank(message = "Kitap adi bos birakilamaz")

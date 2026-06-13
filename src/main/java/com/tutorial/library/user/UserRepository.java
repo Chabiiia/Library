@@ -1,4 +1,4 @@
-package com.tutorial.library;
+package com.tutorial.library.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
