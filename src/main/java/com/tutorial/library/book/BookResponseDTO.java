@@ -5,14 +5,16 @@ public class BookResponseDTO {
     private String title;
     private String author;
     private int pages;
+    private String borrowedBy;
 
     public BookResponseDTO(){}
 
-    public BookResponseDTO(Long id,String title,String author,int pages){
+    public BookResponseDTO(Long id,String title,String author,int pages,String borrowedBy){
         this.id = id;
         this.title = title;
         this.author = author;
         this.pages = pages;
+        this.borrowedBy = borrowedBy;
     }
 
     public Long getId(){return id;}
@@ -27,4 +29,6 @@ public class BookResponseDTO {
     public int getPages(){return pages;}
     public void setPages(int pages){this.pages=pages;}
 
+    public String getBorrowedBy(){return borrowedBy;}
+    public void setBorrowedBy(String borrowedBy){this.borrowedBy = borrowedBy;}
 }

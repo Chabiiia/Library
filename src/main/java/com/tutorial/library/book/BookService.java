@@ -1,5 +1,6 @@
 package com.tutorial.library.book;
 
+import com.tutorial.library.exception.BookNotAvailableException;
 import com.tutorial.library.exception.ResourceNotFoundException;
 import com.tutorial.library.user.User;
 import com.tutorial.library.user.UserRepository;
@@ -21,10 +22,10 @@ public class BookService {
                 .orElseThrow(()-> new ResourceNotFoundException(bookId + "id'li kitap bulunamadi"));
 
         if (book.getUser() != null){
-            throw new RuntimeException("this book is already taken by" + userId);
+            throw new BookNotAvailableException("this book is already taken by" + userId);
         }
         User user = userRepository.findById(userId)
-                .orElseThrow(()-> new ResourceNotFoundException(bookId + "id'li kullanici bulunamadi"));
+                .orElseThrow(()-> new ResourceNotFoundException(userId + "id'li kullanici bulunamadi"));
 
         book.setUser(user);
         Book updatedBook = bookRepository.save(book);
@@ -36,7 +37,7 @@ public class BookService {
                 .orElseThrow(()-> new ResourceNotFoundException(bookId + "id'li kitap bulunamadi"));
 
         if (book.getUser() == null){
-            throw new RuntimeException("bu kitapi kimse zaten almamis");
+            throw new BookNotAvailableException("bu kitapi kimse zaten almamis");
         }
 
         book.setUser(null);
@@ -85,6 +86,7 @@ public class BookService {
     }
 
     private BookResponseDTO toResponseDTO(Book book){
-        return new BookResponseDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPages());
+        String borrowedBy = book.getUser() != null ? book.getUser().getUsername() : null;
+        return new BookResponseDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPages(),borrowedBy);
     }
 }
